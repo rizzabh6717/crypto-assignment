@@ -1,0 +1,15 @@
+<!doctype html><meta charset="utf-8"><title>Market Data</title>
+<style>body{font-family:ui-monospace,Consolas,monospace;font-size:13px;margin:0;padding:8px;background:#0b1220;color:#e5e7eb} pre{white-space:pre-wrap}</style>
+<h3>Market Data (BTC-USDT)</h3>
+<pre id="out">Connecting…</pre>
+<script>
+const out = document.getElementById('out');
+const ws = new WebSocket('ws://127.0.0.1:8000/ws/marketdata?symbol=BTC-USDT');
+ws.onopen = ()=> out.textContent = 'Connected to /ws/marketdata\n';
+ws.onmessage = (e)=>{
+  try{ const msg = JSON.parse(e.data); out.textContent = new Date().toISOString()+"\n"+JSON.stringify(msg, null, 2); }
+  catch{ out.textContent = e.data }
+};
+ws.onclose = ()=> out.textContent += '\nClosed';
+ws.onerror = ()=> out.textContent += '\nError';
+</script>
