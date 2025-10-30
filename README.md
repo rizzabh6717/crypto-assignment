@@ -12,7 +12,6 @@ Architecture
 - Price discovery uses heaps (min-heap for asks, max-heap via negation for bids) for O(log N) inserts/deletes.
 - Concurrency via ThreadPoolExecutor; per-symbol locks guard book mutations; async layer publishes market data/trades.
 
-```mermaid path=null start=null
 graph TD;
   Client -->|REST /orders| API[FastAPI]
   Client -->|WS /ws/marketdata| API
